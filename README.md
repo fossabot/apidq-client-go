@@ -1,52 +1,56 @@
-# ApiDQ API PHP Client
-
-[![codecov](https://codecov.io/gh/nikitaksv/apidq-client-php/branch/main/graph/badge.svg?token=6MNAB67SOK)](https://codecov.io/gh/nikitaksv/apidq-client-php)
+# ApiDQ API GoLang Client
 
 ---
 
-This is the PHP ApiDQ API client. This library allows using of the actual API version.
-You can find more info in the [documentation](https://docs.apidq.io).
+This is the GoLang ApiDQ API client. This library allows using of the actual API version. You can find more info in
+the [documentation](https://docs.apidq.io).
 
 ## Installation
 
 Follow those steps to install the library:
 
-1. Download and install [Composer](https://getcomposer.org/download/) package manager.
-2. Install the library from the Packagist by executing this command:
+1. Import the library our code:
 
-```bash
-composer require nikitaksv/apidq-client-php:"~1.0"
-```
-
-**Note:** API client uses `php-http/client-implementation` as a PSR-18, PSR-17 implementation. You can replace those
-implementations during installation by installing this library with the implementation of your choice, like this:
-
-```sh
-composer require symfony/http-client guzzlehttp/psr7 nikitaksv/apidq-client-php:"~1.0"
+```shell
+go get github.com/nikitaksv/apidq-client-go
 ```
 
 ## Usage
 
-Firstly, you should initialize the Client. The easiest way to do this is to use the `SimpleClientFactory`:
-
-```php
-$client = \ApiDQ\Factory\SimpleClientFactory::createClient('https://api.apidq.io', 'apiKey');
-$client = \ApiDQ\Factory\SimpleClientFactory::createClientWithCache('https://api.apidq.io', 'apiKey', $psrCache);
-$client = \ApiDQ\Factory\SimpleClientFactory::createClientWithFileCache('https://api.apidq.io', 'apiKey', sys_get_temp_dir());
-```
-
 The client is separated into several resource groups, all of which are accessible through the Client's public
 properties. You can call API methods from those groups like this:
 
-```php
-$cleanResponse = $client->address->clean(
-    (new \ApiDQ\Model\Service\Address\CleanRequest())
-        ->setQuery('Москва')
-        ->setCountryCode('RU')
-);
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"net/http"
+
+	"github.com/nikitaksv/apidq-client-go"
+	"github.com/nikitaksv/apidq-client-go/dto/address"
+)
+
+func main() {
+	client, err := apidq.NewClient(http.DefaultClient, apidq.BaseURL)
+	if err != nil {
+		panic(err)
+	}
+
+	client.WithAuth("your token here")
+	// Or set a individual ApiKey for a specific service
+	// client.WithAuthService("you_token_here", "address")
+
+	cleanRsp, _, err := client.Address.Clean(context.TODO(), &address.CleanRequest{
+		Query:       "москва спартаковская 10с12",
+		CountryCode: "RU",
+	})
+
+	fmt.Println(cleanRsp.Address) // -- print: г Москва, пл Спартаковская
+}
 ```
 
-To handle errors you must use two types of exceptions:
+To handle errors you must use one type of errors:
 
-* `ApiDQ\Exception\Service\ServiceException` for the api service error.
-* `ApiDQ\Exception\Client\BuilderException` for the client builder error.
+* `aidq.ErrorResponse` for the api service error.

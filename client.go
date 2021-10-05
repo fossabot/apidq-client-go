@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	BaseURL         = "https://app.apidq.io/"
+	BaseURL         = "https://api.apidq.io/"
 	contentTypeJSON = "application/json"
 	acceptJSON      = "application/json"
 	authorization   = "Authorization"

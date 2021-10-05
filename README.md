@@ -1,4 +1,6 @@
 # ApiDQ API GoLang Client
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnikitaksv%2Fapidq-client-go.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnikitaksv%2Fapidq-client-go?ref=badge_shield)
+
 
 ---
 
@@ -57,3 +59,7 @@ func main() {
 To handle errors you must use one type of errors:
 
 * `apidq.ErrorResponse` for the api service error.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fnikitaksv%2Fapidq-client-go.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fnikitaksv%2Fapidq-client-go?ref=badge_large)

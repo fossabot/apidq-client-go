@@ -56,4 +56,4 @@ func main() {
 
 To handle errors you must use one type of errors:
 
-* `aidq.ErrorResponse` for the api service error.
+* `apidq.ErrorResponse` for the api service error.

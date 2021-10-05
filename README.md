@@ -46,8 +46,11 @@ func main() {
 		Query:       "москва спартаковская 10с12",
 		CountryCode: "RU",
 	})
+	if err != nil {
+		panic(err)
+    }
 
-	fmt.Println(cleanRsp.Address) // -- print: г Москва, пл Спартаковская
+	fmt.Println(cleanRsp.Address.Address) // -- print: г Москва, пл Спартаковская
 }
 ```
 
